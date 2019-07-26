@@ -10,13 +10,14 @@ const secretWord = require('./secrets')
 module.exports = {
     register,
     getUser,
-    login
+    login,
+    getjokes
 }
 
 function register (data) {
-    const {username, password} = data;
-    const hash = bcrypt.hashSync(data.password, 12)
-    data.password = hash;
+    const {password} = data;
+    const hash = bcrypt.hashSync(password, 12)
+    password = hash;
   return db('users').insert(data);
 }
 
@@ -49,6 +50,20 @@ function getUser(filter){
                 return null
             }
         })
+  }
+
+  function getjokes(){
+    const requestOptions = {
+        headers: { accept: 'application/json' },
+      };
+
+    return axios.get('https://icanhazdadjoke.com/search', requestOptions)
+    .then(response => {
+      return response.data.results;
+    })
+    .catch(err => {
+      return null;
+    });
   }
 
 

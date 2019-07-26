@@ -52,18 +52,14 @@ router.post('/login', async (req, res) =>{
 
 
 router.get('/jokes', authenticate, async (req, res) =>{
-  const requestOptions = {
-    headers: { accept: 'application/json' },
-  };
 
-  axios
-    .get('https://icanhazdadjoke.com/search', requestOptions)
-    .then(response => {
-      res.status(200).json(response.data.results);
-    })
-    .catch(err => {
-      res.status(500).json({ message: 'Error Fetching Jokes', error: err });
-    });
+  try{
+    const jokes = await Users.getjokes();
+    res.status(200).json(jokes)
+    
+  }catch(error){
+    res.status(500).json({message:"could not retreive jokes"})
+  }
 });
 
 

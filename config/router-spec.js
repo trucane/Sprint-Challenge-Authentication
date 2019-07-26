@@ -2,7 +2,7 @@ const request = require('supertest')
 const server = require('../api/server');
 const db = require('../database/dbConfig');
 const Users = require('./router-model')
-require('dotenv').config();
+//require('dotenv').config();
 
 
 
@@ -54,7 +54,7 @@ describe('server', () =>{
             it('should insert user into db', async () =>{
                 await Users.register(data);
                 const users = await db('users');
-                expect(cars).toHaveLength(1);
+                expect(users).toHaveLength(1);
             });
 
             it('should retunr 200 status', () =>{
