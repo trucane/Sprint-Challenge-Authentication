@@ -14,8 +14,10 @@ module.exports = {
 
   testing: {
     client: 'sqlite3',
-    connection: { filename: './database/test.db3' }, // change this if you want a different name for the database
     useNullAsDefault: true, // used to avoid warning on console
+    connection: { 
+      filename: './database/test.db3' 
+    }, // change this if you want a different name for the database
     migrations: {
       directory: './database/migrations',
       tableName: 'dbmigrations',
